@@ -7,6 +7,7 @@ import styles from '../styles/styles.module.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
   return (
     <>
       <Head>

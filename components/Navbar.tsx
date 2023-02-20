@@ -49,7 +49,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
             link: "/signup",
         }
     ];
-
+    
     const handleLogout = async () => {
         try {
             await logOut();
@@ -58,6 +58,23 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
             console.log(error.message);
         }
     };
+
+    // const userItems = [
+    //     {
+    //         id: 1,
+    //         name: "Dashboard",
+    //         link: "/dashboard",
+    //         action: null,
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Logout",
+    //         link: "/",
+    //         action: handleLogout,
+    //     }
+    // ];
+
+    
 
     return(
         <>
@@ -82,13 +99,17 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                         </ul>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <>
-                                {loginItems.map((item) => (
+                                {!userState && loginItems.map((item) => (
                                     <li className="nav-item" key={item.id}>
                                         <Link className="nav-link" href={item?.link}>
                                             {item?.name}
                                         </Link>
                                     </li>
                                 ))}
+                                {userState && 
+                                <Link className="nav-link" href="/dashboard">
+                                    Dashboard
+                                </Link>}
                                 {userState && 
                                 <Link className="nav-link" href="/" onClick={handleLogout}>
                                     Logout

@@ -2,6 +2,7 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
 import { useAuth } from "@/context/AuthContext";
+import styles from '../styles/styles.module.css'
 
 interface SignupType {
   email: string;
@@ -31,67 +32,58 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="sign-up-form container mx-auto w-96 mt-12 border-2 border-gray-400">
-      <h2 className="px-12 mt-8 text-center text-2xl font-semibold text-blue-900">Sign Up</h2>
-      <FormProvider {...methods}>
-        <form action="" className="w-80 mx-auto pb-12 px-4" onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-8">
-            <div className="flex items-center justify-between">
-              <label htmlFor="" className="block mb-3 font-sans text-blue-900">
-                Email
-              </label>
-            </div>
+    <>
+      <div className={`${styles.loginWrapper} d-flex justify-content-center align-items-center text-center`}>
+        <FormProvider {...methods}>
+          <form className="w-50" action="" onSubmit={handleSubmit(onSubmit)}>
+            <h1 className="h3 mb-3 fw-normal">Sign up</h1>
 
-            <input
-              type="email"
+            <div className="form-floating">
+              <input 
+              type="email" 
+              className="form-control" 
+              id="floatingInput" 
+              placeholder="name@example.com"
               {...register("email", { required: "Email is required" })}
-              className={`border border-solid rounded-lg ring:0 focus:ring-0 focus:outline-none border-gray-400 text-gray-500 text-normal py-3 h-12 px-6 text-lg w-full flex items-center`}
-            />
-            {errors.email && <p className="text-red-400">{errors.email.message}</p>}
-          </div>
-          <div className="mt-8">
-            <div className="flex items-center justify-between">
-              <label htmlFor="" className="block mb-3 font-sans text-blue-900">
-                Password
-              </label>
+              />
+              <label htmlFor="floatingInput">Email address</label>
+              {errors.email && <p className="text-red-400">{errors.email.message}</p>}
             </div>
 
-            <input
-              type="password"
+            <div className="form-floating">
+              <input 
+              type="password" 
+              className="form-control" 
+              id="floatingPassword" 
+              placeholder="Password"
               {...register("password", { required: "Password is required" })}
-              className={`border border-solid rounded-lg ring:0 focus:ring-0 focus:outline-none border-gray-400 text-gray-500 text-normal py-3 h-12 px-6 text-lg w-full flex items-center`}
-            />
-            {errors.password && <p className="text-red-400">{errors.password.message}</p>}
-          </div>
-          <div className="mt-8">
-            <div className="flex items-center justify-between">
-              <label htmlFor="" className="block mb-3 font-sans text-blue-900">
-                Confirm Password
-              </label>
+              />
+              <label htmlFor="floatingPassword">Password</label>
+              {errors.password && <p className="text-red-400">{errors.password.message}</p>}
             </div>
 
-            <input
-              type="password"
+            <div className="form-floating">
+              <input 
+              type="password" 
+              className="form-control" 
+              id="floatingPassword" 
+              placeholder="Password"
               {...register("password_confirm", {
                 required: "Verify your password",
               })}
-              className={`border border-solid rounded-lg ring:0 focus:ring-0 focus:outline-none border-gray-400 text-gray-500 text-normal py-3 h-12 px-6 text-lg w-full flex items-center`}
-            />
-            {errors.password_confirm && (
-              <p className="text-red-400">{errors.password_confirm.message}</p>
-            )}
-          </div>
-          <div className="flex justify-center pt-8">
-            <button
-              type="submit"
-              className={`h-12 text-center w-2/3 bg-blue-900 border-2 rounded-md hover:shadow-lg hover:bg-blue-800 text-lg transition`}
-            >
-              <p className="capitalize text-white font-normal">submit</p>
-            </button>
-          </div>
-        </form>
-      </FormProvider>
-    </div>
+              />
+              <label htmlFor="floatingPassword">Confirm Password</label>
+              {errors.password_confirm && (
+                <p className="text-red-400">{errors.password_confirm.message}</p>
+              )}
+            </div>
+
+            <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+          </form>
+        </FormProvider>
+      </div>
+    </>
+    
   );
 };
 

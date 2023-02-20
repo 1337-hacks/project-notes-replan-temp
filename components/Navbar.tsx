@@ -1,6 +1,24 @@
 import Link from 'next/link'
+import { useRouter } from 'next/navigation';
+import { useAuth } from "@/context/AuthContext";
+import { useEffect, useState } from 'react';
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
+    
+    const { user, logOut } = useAuth();
+    const router = useRouter();
+
+    const [userState, setUserState] = useState(false);
+    
+    useEffect(()=> {
+        if(!user.uid) {
+            setUserState(false);
+        }
+        else {
+            setUserState(true);
+        }
+    }, [user])
+
     const menuItems = [
         {
             id: 1,
@@ -32,6 +50,15 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         }
     ];
 
+    const handleLogout = async () => {
+        try {
+            await logOut();
+            router.push("/");
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    };
+
     return(
         <>
         <header>
@@ -62,6 +89,10 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                                         </Link>
                                     </li>
                                 ))}
+                                {userState && 
+                                <Link className="nav-link" href="/" onClick={handleLogout}>
+                                    Logout
+                                </Link>}
                             </>
                         </ul>
                     </div>

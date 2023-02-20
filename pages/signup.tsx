@@ -1,5 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useRouter } from 'next/navigation';
+import { useAuth } from "@/context/AuthContext";
 
 interface SignupType {
   email: string;
@@ -16,8 +18,16 @@ const SignupPage = () => {
     formState: { errors },
   } = methods;
 
+  const { signUp } = useAuth();
+  const router = useRouter();
+
   const onSubmit = async (data: SignupType) => {
-    console.log(data);
+    try {
+      await signUp(data.email, data.password);
+      router.push("/dashboard");
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (

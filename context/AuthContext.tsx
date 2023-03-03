@@ -14,28 +14,11 @@ import {
   signOut 
 } from "firebase/auth";
 
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
-
 import { auth } from "../config/firebase";
 
 interface UserType {
   email: string | null;
   uid: string | null;
-}
-
-function createNewCollection(uid: string) {
-  const db = firebase.firestore();
-  db.collection(uid).add({
-    title: "untitled",
-    content: ""
-  })
-  .then(() => {
-    console.log('New collection created successfully.');
-  })
-  .catch((error: any) => {
-    console.error('Error creating collection:', error);
-  });
 }
 
 const AuthContext = createContext({});
@@ -53,7 +36,6 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
           email: user.email,
           uid: user.uid,
         });
-        createNewCollection(user.uid);
       } else {
         setUser({ email: null, uid: null });
       }
